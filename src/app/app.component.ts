@@ -14,9 +14,22 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
+      email: ['', 
+      [
+        Validators.required, Validators.email
+      ]
+    ],
+      password: ['', 
+      [
+        Validators.required,
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*].{8,}')
+      ]
+    ],
+      confirmPassword: ['', 
+      [
+        Validators.required
+      ]
+    ]
     },
     {
       validator: ConfirmedValidator('password', 'confirmPassword')
@@ -41,7 +54,9 @@ export class AppComponent implements OnInit {
 
   submit() {
     // send this.loginForm.value to API
-    console.log(this.loginForm.value);
+    if (!this.loginForm.invalid) {
+      console.log(this.loginForm.value);
+    }
   }
 
 }

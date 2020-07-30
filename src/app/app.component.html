@@ -15,24 +15,27 @@
     <div *ngIf="password.errors.required">
       Password is required
     </div>
-    <div *ngIf="password.errors.minlength">
-      Minimum password length is 8 characters
+    <div *ngIf="password.errors.pattern">
+      <div>
+        <ul style="margin: 0; padding: 0;">
+          Password does not meet one of the requirements:
+          <li>Minimum length of 8 characters</li>
+          <li>At least one special character</li>
+          <li>At least one lowercase letter</li>
+          <li>At least one uppercase letter</li>
+          <li>At least one digit</li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
   <div *ngIf="confirmPassword.touched && confirmPassword.invalid" class="alert alert-danger">
-    <div *ngIf="confirmPassword.errors.required">
-      Password confirmation is required
-    </div>
-    <div *ngIf="confirmPassword.errors.minlength">
-      Minimum password length is 8 characters
-    </div>
     <div *ngIf="confirmPassword.errors.confirmedValidator">
       Passwords do not match
     </div>
   </div>
 
 
-  <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Submit</button>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
